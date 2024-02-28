@@ -6,7 +6,7 @@ resource "aws_ecs_cluster" "demo_cluster" {
 }
 
 resource "aws_iam_role" "ecs_execution_role" {
-  name = "${var.deployment_name}ecs_execution_role"
+  name = "${var.deployment_name}_reference_app_ecs_execution_role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
@@ -75,7 +75,7 @@ resource "aws_ecs_task_definition" "demo" {
 }
 
 resource "aws_security_group" "ecs_sg" {
-  name        = "${var.deployment_name}-ecs_service_sg"
+  name        = "${var.deployment_name}-reference_app-ecs_service_sg"
   description = "Security group for ECS service"
   vpc_id      = data.aws_ssm_parameter.vpc_id.value
 
