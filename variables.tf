@@ -17,7 +17,11 @@ variable "deployment_name" {
   description = "The deployment name"
   type        = string
 }
-
+variable "installprefix" {
+  description = "The management console install prefix"
+  type = string
+  default = "UnknownPrefix"
+}
 variable "template" {
   default = <<EOT
 <VirtualHost *:8080>
