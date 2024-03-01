@@ -6,6 +6,9 @@ data "aws_ssm_parameter" "subnet_list" {
   name = "/unity/account/network/subnet_list"
 }
 
+data "aws_ssm_parameter" "proxylambda" {
+  name = "/unity/cs/management/proxy/${var.installprefix}-httpd-lambda-name"
+}
 
 data "aws_iam_policy" "mcp_operator_policy" {
   name = "mcp-tenantOperator-AMI-APIG"
@@ -20,10 +23,10 @@ locals {
 #####################
 
 resource "aws_lambda_invocation" "demoinvocation2" {
-  function_name = "ZwUycV-unity-proxy-httpdproxymanagement"
+  function_name = data.aws_ssm_parameter.proxylambda.value
 
   input = jsonencode({
-    filename  = "example_filename1",
+    filename  = "example_filename_make_me_dynamic",
     template = var.template
   })
 
